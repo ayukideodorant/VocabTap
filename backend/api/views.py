@@ -43,10 +43,11 @@ def login_user(req):
     # 入力されたユーザ名でデータベースからユーザ名と一致するパスワードを取得
     user_obj = models.User.objects.filter(name=user_name).first()
     if not user_obj:
-        return JsonResponse({"status": "user is not found."})
+        return JsonResponse({"status": "user is not found."}, status=status.HTTP_404_NOT_FOUND)
     # 入力されたパスワードとデータベースのパスワードが一致するか否か
     if user_obj.password == user_password:
     # 一致する場合、ログインOK
         return JsonResponse({"status": "OK"}, status=status.HTTP_202_ACCEPTED)
     # 一致しない場合、ログインNG
     return JsonResponse({"status": "NG"}, status=status.HTTP_401_UNAUTHORIZED)
+

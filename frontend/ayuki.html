@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            VOCABTAP
+        </title>
+    </head>
+    <body>
+        <h1>
+            VOCABTAP
+        </h1>
+        <button type="button" onclick="test()">
+            button
+        </button>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            function test(){
+                // const axios = require('axios/dist/browser/axios.cjs');
+
+                let userNameTag = document.getElementById("user_name")
+                let passwordTag = document.getElementById("password")
+
+                var data = JSON.stringify({
+                    "name": userNameTag.value,
+                    "password": passwordTag.value
+                });
+
+                axios.post('http://localhost:8000/api/login', data)
+                .then(function (response) {
+                    // alert("ログイン成功");
+                    window.location.href = "./home.html"
+                })
+                .catch(function (error) {
+                   alert("ログイン失敗");
+                });
+            }
+            
+        </script>
+        <input type="text" id="user_name" name="user_name" 
+        required minlength="1" maxlength="20" size="10" />
+        <input type="text" id="password" name="password" 
+        required minlength="1" maxlength="10" size="10" />
+    </body>
+</html>

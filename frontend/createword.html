@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            VOCABTAP create word
+        </title>
+    </head>
+    <body>
+        <h1>
+            VOCABTAP create word
+        </h1>
+        <button type="button" onclick="test()">
+            createword
+        </button>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            function test(){
+                // const axios = require('axios/dist/browser/axios.cjs');
+
+                let alphabetTag = document.getElementById("alphabet")
+                let programlanguageTag = document.getElementById("program_language_id")
+
+                var data = JSON.stringify({
+                    "alphabet": alphabetTag.value,
+                    "program_language_id": programlanguageTag.value
+                });
+
+                axios.post('http://localhost:8000/api/createword', data)
+                .then(function (response) {
+                    alert("ワード登録完了");
+                })
+                .catch(function (error) {
+                    alert("ワード登録失敗");
+                });
+            }
+            
+        </script>
+        <input type="text" id="alphabet" name="alphabet" 
+        required minlength="1" maxlength="20" size="10" />
+        <input type="text" id="program_language_id" name="program_language_id" 
+        required minlength="1" maxlength="20" size="10" />
+    </body>
+</html>

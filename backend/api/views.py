@@ -51,3 +51,41 @@ def login_user(req):
     # 一致しない場合、ログインNG
     return JsonResponse({"status": "NG"}, status=status.HTTP_401_UNAUTHORIZED)
 
+@csrf_exempt
+def create_word(req):
+    # リクエストからデータを取得
+    data = json.loads(req.body)
+    new_alphabet = data.get("alphabet")
+    new_program_language_id = data.get("program_language_id")
+    # ユーザーをDBに登録
+    new_word_obj = models.Word(alphabet=new_alphabet, program_language_id=new_program_language_id)
+    new_word_obj.save()
+    return JsonResponse({"alphabet": new_alphabet, "program_language_id": new_program_language_id})
+
+
+def import_words(csv_path):
+    # csv_pathを参照してcsvファイルを開く
+    with open(csv_path) as csv_file:
+        word_list = csv_file.readlines() # ['a,2', 'able,2', 'afternoon,2' ... ]
+    # １行ずつ読み取る
+    for word_line in word_list:
+        word, lang_num = word_line.split(',')
+        print("word: ", word, ", ", "lang_num: ", lang_num)
+        # DBにデータを登録
+        new_word_obj = models.Word(alphabet=word, program_language_id=int(lang_num))
+        new_word_obj.save()
+
+
+from backend.settings import BASE_DIR
+def do(req):
+    csv_file_path = str(BASE_DIR) + "/word/chu1.csv"
+    import_words(csv_file_path)
+    return JsonResponse({"message": "imported words"})
+
+
+@csrf_exempt
+def get_word(req):
+    id_num = random.randint(5, 452)
+    word_obj = models.Word.objects.filter(id=id_num).first()
+    word = word_obj.alphabet
+    return JsonResponse({"message": word})

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            VOCABTAP
+        </title>
+    </head>
+    <body>
+        <h1>
+            VOCABTAP play
+        </h1>
+        <div>
+            <h2>問題</h2>
+            <h3 id="randomWord"></h3>
+        </div>
+        <div></div>
+            <h2>入力</h2>
+            <h3 id="answerWord"></h3>
+        </div>
+        <button type="button" onclick="display_word()">
+            start
+        </button>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            let word = "";
+            let answerWordTag = document.getElementById("answerWord")
+
+            function display_word(){
+                answerWordTag.textContent = "";
+                input_list = []
+                var randomWordTag = document.getElementById("randomWord");
+                // wordテーブルからwordをとってきたい
+                axios.get('http://localhost:8000/api/getword')
+                .then(function (response) {
+                    console.log(response.data.message);
+                    word = (response.data.message).toUpperCase();
+                    console.log(word);
+                    randomWordTag.textContent = response.data.message;
+                })
+                .catch(function (error) {
+                    alert("ユーザ登録失敗");
+                });
+            }
+
+            let input_list = []
+
+            document.onkeydown = function(e) {
+                var keyCode = false;
+
+                if (e) event = e;
+
+                if (event) {
+                    if (event.keyCode) {
+                        keyCode = event.keyCode;
+                    } else if (event.which) {
+                        keyCode = event.which;
+                    }
+                }
+
+                input_list.push(String.fromCharCode(keyCode));
+                answerWordTag.textContent = input_list.join('');
+                if (input_list.join('') == word) {
+                    alert("正解");
+                    display_word();
+                }
+            };
+        </script>
+    </body>
+</html>

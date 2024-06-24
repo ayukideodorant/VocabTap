@@ -85,7 +85,7 @@ def do(req):
 
 @csrf_exempt
 def get_word(req):
-    id_num = random.randint(5, 452)
+    id_num = random.randint(1, 448)
     word_obj = models.Word.objects.filter(id=id_num).first()
     word = word_obj.alphabet
     return JsonResponse({"message": word})

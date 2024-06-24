@@ -22,19 +22,27 @@
         </button>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
+            //　変数の宣言
             let word = "";
+            //　回答タグ付け
             let answerWordTag = document.getElementById("answerWord")
 
             function display_word(){
+                //　answerTagのtextContentの初期化
                 answerWordTag.textContent = "";
+                //　なんこれ？
                 input_list = []
+                //　ランダムにとってきた単語タグ付け
                 var randomWordTag = document.getElementById("randomWord");
-                // wordテーブルからwordをとってきたい
+                // wordテーブルからwordをとってくる
                 axios.get('http://localhost:8000/api/getword')
                 .then(function (response) {
+                    //　response.data.messageがgetwordにGETした結果得られた単語
                     console.log(response.data.message);
+                    //　toUpperCase()は大文字化
                     word = (response.data.message).toUpperCase();
                     console.log(word);
+                    //　ランダムにとってきた単語をtextContentに入れる
                     randomWordTag.textContent = response.data.message;
                 })
                 .catch(function (error) {
@@ -45,10 +53,10 @@
             let input_list = []
 
             document.onkeydown = function(e) {
+
+                //　キーコードをとってくるところ
                 var keyCode = false;
-
                 if (e) event = e;
-
                 if (event) {
                     if (event.keyCode) {
                         keyCode = event.keyCode;
@@ -57,10 +65,15 @@
                     }
                 }
 
+                //　キーコードを文字に変えてinput_listにいれていく
                 input_list.push(String.fromCharCode(keyCode));
+                //　input_listを繋ぎ合わせてanswerWordTag.textContentに入れる
+                //　そのままanswerWordに反映されるっぽい
                 answerWordTag.textContent = input_list.join('');
+                //　正誤判定
                 if (input_list.join('') == word) {
                     alert("正解");
+                    //　display_word()に戻る
                     display_word();
                 }
             };

@@ -11,7 +11,7 @@ class User(models.Model):
     name = models.CharField(max_length=20)
     password = models.CharField(max_length=10)
 
-class TypRecord(models.Model):
+class TypeRecord(models.Model):
     frequent = models.IntegerField()
     faild_count = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)

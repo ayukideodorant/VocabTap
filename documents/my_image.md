@@ -1,6 +1,7 @@
 ## VoCabTap完成のイメージ
 ### ユーザ登録画面
 <img src="VocabTap完成のイメージ.jpg" width="50%">
+1. ユーザー名の重複を防ぎたい
 
 ### ログイン画面
 <img src="VocabTap完成のイメージ (1).jpg" width="50%">

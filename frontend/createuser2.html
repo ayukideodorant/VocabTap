@@ -1,0 +1,49 @@
+<link href="login.css" rel="stylesheet" />
+<head>
+    <title>
+        VOCABTAP ユーザー登録
+    </title>
+</head>
+<div class="login-container">
+  <h1>ユーザー登録</h1>
+  <form>
+    <div class="form-group">
+      <label for="username">ユーザー名</label>
+      <input type="text" id="username" name="username" required
+      minlength="1" maxlength="20" size="10"/>
+    </div>
+    <div class="form-group">
+      <label for="password">パスワード</label>
+      <input type="password" id="password" name="password" required
+      minlength="1" maxlength="20" size="10"/>
+    </div>
+    <button type="submit" onclick="create()">ユーザー登録</button>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function create(){
+            // const axios = require('axios/dist/browser/axios.cjs');
+
+            let userNameTag = document.getElementById("username")
+            let passwordTag = document.getElementById("password")
+
+            var data = JSON.stringify({
+                "name": userNameTag.value,
+                "password": passwordTag.value
+            });
+
+            axios.post('http://localhost:8000/api/user', data)
+            .then(function (response) {
+                alert("ユーザ登録完了");
+                window.location.href = 'complete_createuser.html';
+            })
+            .catch(function (error) {
+                alert("ユーザ登録失敗");
+            });
+        }
+    </script>
+
+    <br><br>
+    <a href="file://wsl.localhost/Ubuntu-22.04/home/ayuki/VocabTap/frontend/login.html">
+        ログイン</a>
+  </form>
+</div>

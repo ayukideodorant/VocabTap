@@ -20,21 +20,23 @@
     <button type="submit" onclick="create()">ユーザー登録</button>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        function create(){
+        async function create(){
             // const axios = require('axios/dist/browser/axios.cjs');
 
             let userNameTag = document.getElementById("username")
             let passwordTag = document.getElementById("password")
 
-            var data = JSON.stringify({
+            var data = await JSON.stringify({
                 "name": userNameTag.value,
                 "password": passwordTag.value
             });
 
             axios.post('http://localhost:8000/api/user', data)
             .then(function (response) {
-                alert("ユーザ登録完了");
-                window.location.href = 'complete_createuser.html';
+                //alert("ユーザ登録完了");
+                userNameTag = null
+                passwordTag = null
+                window.location.href = "\\wsl.localhost\Ubuntu-22.04\home\ayuki\VocabTap\frontend\complete_createuser.html";
             })
             .catch(function (error) {
                 alert("ユーザ登録失敗");

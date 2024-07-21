@@ -12,7 +12,7 @@ body{
   justify-content: center;
 }
 
-.formContainer form{
+.formContainer form {
   background-color: rgb(233, 233, 233);
   width: 70%;
   max-width: 450px;
@@ -21,4 +21,55 @@ body{
   border: 1px solid #dfdfdf;
   box-shadow: 39px 35px 19px -3px #777777;
   border-radius: 10px;
+}
+
+h1{
+  text-align: center;
+}
+
+.uiForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 300px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.formField input {
+  border: 1px solid grey;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.formField input:focus {
+  outline: none;
+}
+
+.formField label {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+button {
+  background-color: rgb(48, 92, 212);
+  width: 100%;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background-color: rgb(46, 46, 128);
 }
